@@ -15,8 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLineEdit, QPushButton,
-    QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QLineEdit,
+    QPushButton, QSizePolicy, QSpacerItem, QVBoxLayout,
+    QWidget)
 
 class Ui_loginwidget(object):
     def setupUi(self, loginwidget):
@@ -40,6 +41,12 @@ class Ui_loginwidget(object):
         self.password_lineedit.setEchoMode(QLineEdit.Password)
 
         self.verticalLayout.addWidget(self.password_lineedit)
+
+        self.error_label = QLabel(loginwidget)
+        self.error_label.setObjectName(u"error_label")
+        self.error_label.setMinimumSize(QSize(0, 40))
+
+        self.verticalLayout.addWidget(self.error_label)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setSpacing(8)
@@ -85,6 +92,7 @@ class Ui_loginwidget(object):
         loginwidget.setWindowTitle("")
         self.username_lineedit.setPlaceholderText(QCoreApplication.translate("loginwidget", u"Username", None))
         self.password_lineedit.setPlaceholderText(QCoreApplication.translate("loginwidget", u"Password", None))
+        self.error_label.setText("")
         self.login_button.setText(QCoreApplication.translate("loginwidget", u"Login", None))
         self.exit_button.setText(QCoreApplication.translate("loginwidget", u"Exit", None))
     # retranslateUi
