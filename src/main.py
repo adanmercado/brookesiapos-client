@@ -16,6 +16,12 @@ if __name__ == '__main__':
     app.setOrganizationName('adanmercado')
     app.setOrganizationDomain('adanmercado.brookesiapos')
 
+    with open('qrc/theme/default/brookesia.qss', 'r') as qss:
+        theme = qss.read()
+    
+    if theme:
+        app.setStyleSheet(theme)
+
     login = LoginWidget()
     login.show()
 

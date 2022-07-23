@@ -25,6 +25,12 @@ class LoginWidget(Ui_loginwidget, QWidget):
 
         self.error_label.setVisible(False)
 
+        with open('qrc/theme/default/login.qss') as qss:
+            theme = qss.read()
+
+        if theme:
+            self.setStyleSheet(theme)
+
     def login(self):
         username = self.username_lineedit.text().strip()
         if not username:
