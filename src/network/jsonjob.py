@@ -8,7 +8,7 @@ class JsonJob(QObject):
     finished = Signal(dict)
     finished_with_error = Signal(str)
 
-    def __init__(self, endpoint: str, method: str = 'GET'):
+    def __init__(self, endpoint: str, method: str = 'GET') -> None:
         super(JsonJob, self).__init__()
         self.host = 'http://localhost:5000/api'
         self.endpoint = endpoint
@@ -27,10 +27,10 @@ class JsonJob(QObject):
             # 'Authorization': 'Basic ' + auth_data
         }
 
-    def set_body(self, data: dict):
+    def set_body(self, data: dict) -> None:
         self.data = data
 
-    def start(self):
+    def start(self) -> None:
         print(f'Sending {self.method} request to {self.url}')
         try:
             if self.method == 'GET':

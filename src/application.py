@@ -6,11 +6,11 @@ from ui.login.loginwidget import LoginWidget
 from core.user import User
 
 class Application(QApplication):
-    def __init__(self, args):
+    def __init__(self, args) -> None:
         super(Application, self).__init__(args)
         self.setup()
 
-    def setup(self):
+    def setup(self) -> None:
         self.setApplicationName('Brookesia POS')
         self.setApplicationDisplayName('Brookesia POS')
         self.setApplicationVersion('1.0.0')
@@ -23,11 +23,11 @@ class Application(QApplication):
         if theme:
             self.setStyleSheet(theme)
 
-    def show_login(self):
+    def show_login(self) -> None:
         self.login = LoginWidget()
         self.login.logged_in.connect(self.show_brookesiapos)
         self.login.show()
 
-    def show_brookesiapos(self, user: User = None):
+    def show_brookesiapos(self, user: User = None) -> None:
         self.brookesiapos = BrookesiaPOS(user)
         self.brookesiapos.showMaximized()
