@@ -19,7 +19,7 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
 from PySide6.QtWidgets import (QApplication, QMainWindow, QSizePolicy, QStatusBar,
     QToolBar, QWidget)
 
-class Ui_brookesiapos(object):
+class BrookesiaPOS_UI(object):
     def setupUi(self, brookesiapos):
         if not brookesiapos.objectName():
             brookesiapos.setObjectName(u"brookesiapos")

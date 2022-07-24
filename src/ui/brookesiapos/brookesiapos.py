@@ -1,11 +1,11 @@
 from PySide6.QtWidgets import QApplication, QMainWindow
 from PySide6.QtCore import Qt
 
-from .brookesiapos_ui import Ui_brookesiapos
+from .brookesiapos_ui import BrookesiaPOS_UI
 
 from core.user import User
 
-class BrookesiaPOS(Ui_brookesiapos, QMainWindow):
+class BrookesiaPOS(BrookesiaPOS_UI, QMainWindow):
     def __init__(self, user: User) -> None:
         super(BrookesiaPOS, self).__init__()
         self.setup(user)

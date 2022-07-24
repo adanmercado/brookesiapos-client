@@ -3,12 +3,12 @@ from hashlib import sha256
 from PySide6.QtWidgets import QApplication, QWidget
 from PySide6.QtCore import Qt, QTimer, Signal
 
-from .loginwidget_ui import Ui_loginwidget
+from .loginwidget_ui import LoginWidget_UI
 
 from core.user import User
 from network.jsonjob import JsonJob
 
-class LoginWidget(Ui_loginwidget, QWidget):
+class LoginWidget(LoginWidget_UI, QWidget):
     logged_in = Signal(User)
 
     def __init__(self) -> None:
