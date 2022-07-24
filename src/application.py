@@ -1,6 +1,8 @@
 from PySide6.QtWidgets import QApplication
 
+from ui.brookesiapos.brookesiapos import BrookesiaPOS
 from ui.login.loginwidget import LoginWidget
+
 from core.user import User
 
 class Application(QApplication):
@@ -27,4 +29,5 @@ class Application(QApplication):
         self.login.show()
 
     def show_brookesiapos(self, user: User = None):
-        pass
+        self.brookesiapos = BrookesiaPOS(user)
+        self.brookesiapos.showMaximized()

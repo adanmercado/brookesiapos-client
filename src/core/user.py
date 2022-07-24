@@ -1,5 +1,4 @@
 from __future__ import annotations
-from unicodedata import name
 
 class User:
     name: str
@@ -21,11 +20,10 @@ class User:
     
     @staticmethod
     def from_json(data: dict) -> User:
-        print(data)
         user = User()
         user.name = data['name']
         user.address = data['address']
-        #user.phone = data['phone']
+        user.phone = data['phone']
         user.email = data['email']
         user.username = data['username']
         user.password = data['password']

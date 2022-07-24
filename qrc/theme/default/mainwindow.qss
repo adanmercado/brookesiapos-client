@@ -1,0 +1,22 @@
+QToolBar {
+    background-color: rgb(248, 248, 248);
+}
+
+QToolButton {
+    background-color: rgb(248, 248, 248);
+    padding: 4px;
+}
+
+QToolButton::hover {
+    background-color: rgb(240, 240, 240);
+}
+
+QToolButton::pressed {
+    background-color: rgb(0, 119, 190);
+    color: rgb(255, 255, 255);
+}
+
+QToolButton:disabled {
+    background-color: rgba(240, 240, 240, 0.4);
+    color: rgba(85, 85, 85, 0.6);
+}

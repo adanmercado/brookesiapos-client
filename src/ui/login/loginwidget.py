@@ -1,8 +1,6 @@
 from hashlib import sha256
-import os
-from pathlib import Path
 
-from PySide6.QtWidgets import QApplication, QWidget, QMessageBox
+from PySide6.QtWidgets import QApplication, QWidget
 from PySide6.QtCore import Qt, QTimer, Signal
 
 from .loginwidget_ui import Ui_loginwidget
@@ -21,6 +19,7 @@ class LoginWidget(Ui_loginwidget, QWidget):
         self.setupUi(self)
 
         self.setWindowFlags(Qt.CustomizeWindowHint | Qt.WindowTitleHint)
+        self.setAttribute(Qt.WA_DeleteOnClose)
         self.setWindowTitle(self.tr('Brookesia POS Login'))
         self.setFixedSize(300, 170)
 
@@ -65,7 +64,7 @@ class LoginWidget(Ui_loginwidget, QWidget):
         if status_code == 200 and data['data']:
             user = User.from_json(data['data'][0])
             self.logged_in.emit(user)
-            print('Auth ok')
+            self.close()
         elif status_code == 201:
             self.show_error(self.tr('Bad password'))
         elif status_code == 404:
