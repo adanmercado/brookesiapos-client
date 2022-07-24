@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QApplication
 
 from ui.login.loginwidget import LoginWidget
+from core.user import User
 
 class Application(QApplication):
     def __init__(self, args):
@@ -22,7 +23,8 @@ class Application(QApplication):
 
     def show_login(self):
         self.login = LoginWidget()
+        self.login.logged_in.connect(self.show_brookesiapos)
         self.login.show()
 
-    def show_brookesiapos(self):
+    def show_brookesiapos(self, user: User = None):
         pass

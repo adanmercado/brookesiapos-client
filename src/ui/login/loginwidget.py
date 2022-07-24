@@ -3,12 +3,16 @@ import os
 from pathlib import Path
 
 from PySide6.QtWidgets import QApplication, QWidget, QMessageBox
-from PySide6.QtCore import Qt, QTimer
+from PySide6.QtCore import Qt, QTimer, Signal
 
 from .loginwidget_ui import Ui_loginwidget
+
+from core.user import User
 from network.jsonjob import JsonJob
 
 class LoginWidget(Ui_loginwidget, QWidget):
+    logged_in = Signal(User)
+
     def __init__(self):
         super(LoginWidget, self).__init__()
         self.setup()
@@ -59,6 +63,8 @@ class LoginWidget(Ui_loginwidget, QWidget):
         status_code = data['response_status']['status']
 
         if status_code == 200 and data['data']:
+            user = User.from_json(data['data'][0])
+            self.logged_in.emit(user)
             print('Auth ok')
         elif status_code == 201:
             self.show_error(self.tr('Bad password'))
