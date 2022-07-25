@@ -83,3 +83,7 @@ QPushButton:disabled {
     background-color: rgba(240, 240, 240, 0.4);
     color: rgba(85, 85, 85, 0.6);
 }
+
+QTableView {
+    border: 1px solid rgb(221, 221, 221);
+}

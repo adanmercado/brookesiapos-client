@@ -141,7 +141,7 @@ class SalesWidget_UI(object):
         self.logo_label.setObjectName(u"logo_label")
         self.logo_label.setMinimumSize(QSize(0, 150))
         self.logo_label.setMaximumSize(QSize(16777215, 150))
-        self.logo_label.setStyleSheet(u"border: 1px solid rgb(52, 101, 164);")
+        self.logo_label.setStyleSheet(u"")
         self.logo_label.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.logo_label)
