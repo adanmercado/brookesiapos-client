@@ -16,8 +16,8 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QMainWindow, QSizePolicy, QStatusBar,
-    QToolBar, QWidget)
+from PySide6.QtWidgets import (QApplication, QMainWindow, QSizePolicy, QStackedWidget,
+    QToolBar, QVBoxLayout, QWidget)
 
 class BrookesiaPOS_UI(object):
     def setupUi(self, brookesiapos):
@@ -73,10 +73,16 @@ class BrookesiaPOS_UI(object):
         self.action_exit.setIcon(icon8)
         self.centralwidget = QWidget(brookesiapos)
         self.centralwidget.setObjectName(u"centralwidget")
+        self.verticalLayout = QVBoxLayout(self.centralwidget)
+        self.verticalLayout.setSpacing(8)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.views_stackedwidget = QStackedWidget(self.centralwidget)
+        self.views_stackedwidget.setObjectName(u"views_stackedwidget")
+
+        self.verticalLayout.addWidget(self.views_stackedwidget)
+
         brookesiapos.setCentralWidget(self.centralwidget)
-        self.statusbar = QStatusBar(brookesiapos)
-        self.statusbar.setObjectName(u"statusbar")
-        brookesiapos.setStatusBar(self.statusbar)
         self.toolbar = QToolBar(brookesiapos)
         self.toolbar.setObjectName(u"toolbar")
         self.toolbar.setMovable(False)

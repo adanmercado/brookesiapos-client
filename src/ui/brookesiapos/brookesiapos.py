@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QApplication, QMainWindow
 from PySide6.QtCore import Qt
 
 from .brookesiapos_ui import BrookesiaPOS_UI
+from ui.sales.saleswidget import SalesWidget
 
 from core.user import User
 
@@ -27,3 +28,12 @@ class BrookesiaPOS(BrookesiaPOS_UI, QMainWindow):
         
         if theme:
             self.setStyleSheet(theme)
+
+        self.views = {}
+        
+        self.load_salesview()
+
+    def load_salesview(self):
+        salesview = SalesWidget(self)
+        self.views_stackedwidget.addWidget(salesview)
+        self.views['salesview'] = 0
