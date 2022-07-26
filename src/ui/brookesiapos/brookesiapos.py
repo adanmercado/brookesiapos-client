@@ -4,6 +4,7 @@ from PySide6.QtCore import Qt
 from .brookesiapos_ui import BrookesiaPOS_UI
 from ui.sales.saleswidget import SalesWidget
 from ui.customers.customerswidget import CustomersWidget
+from ui.products.productswidget import ProductsWidget
 
 from core.user import User
 
@@ -21,6 +22,7 @@ class BrookesiaPOS(BrookesiaPOS_UI, QMainWindow):
 
         self.action_sales.triggered.connect(lambda: self.views_stackedwidget.setCurrentIndex(self.views.get('salesview')))
         self.action_customers.triggered.connect(lambda: self.views_stackedwidget.setCurrentIndex(self.views.get('customersview')))
+        self.action_products.triggered.connect(lambda: self.views_stackedwidget.setCurrentIndex(self.views.get('productsview')))
 
         self.action_minimize.triggered.connect(self.showMinimized)
         self.action_exit.triggered.connect(QApplication.instance().quit)
@@ -37,6 +39,7 @@ class BrookesiaPOS(BrookesiaPOS_UI, QMainWindow):
         
         self.load_salesview()
         self.load_customersview()
+        self.load_productsview()
 
     def load_salesview(self):
         salesview = SalesWidget(self)
@@ -47,3 +50,8 @@ class BrookesiaPOS(BrookesiaPOS_UI, QMainWindow):
         customersview = CustomersWidget(self)
         self.views_stackedwidget.addWidget(customersview)
         self.views['customersview'] = 1
+
+    def load_productsview(self):
+        productsview = ProductsWidget(self)
+        self.views_stackedwidget.addWidget(productsview)
+        self.views['productsview'] = 2
