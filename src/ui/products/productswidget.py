@@ -7,5 +7,5 @@ class ProductsWidget(ProductsWidget_UI, QWidget):
         super(ProductsWidget, self).__init__(parent)
         self.setup()
 
-    def setup(self):
+    def setup(self) -> None:
         self.setupUi(self)

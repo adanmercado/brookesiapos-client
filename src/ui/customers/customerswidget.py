@@ -7,5 +7,5 @@ class CustomersWidget(CustomersWidget_UI, QWidget):
         super(CustomersWidget, self).__init__(parent)
         self.setup()
 
-    def setup(self):
+    def setup(self) -> None:
         self.setupUi(self)

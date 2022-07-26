@@ -7,7 +7,7 @@ class SalesWidget(SalesWidget_UI, QWidget):
         super(SalesWidget, self).__init__(parent)
         self.setup()
 
-    def setup(self):
+    def setup(self) -> None:
         self.setupUi(self)
 
         self.customers_combobox.setView(QListView())
