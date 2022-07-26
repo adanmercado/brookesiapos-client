@@ -2,6 +2,7 @@ from hashlib import sha256
 
 from PySide6.QtWidgets import QApplication, QWidget
 from PySide6.QtCore import Qt, QTimer, Signal
+from PySide6.QtGui import QKeyEvent
 
 from .loginwidget_ui import LoginWidget_UI
 
@@ -66,9 +67,13 @@ class LoginWidget(LoginWidget_UI, QWidget):
             self.logged_in.emit(user)
             self.close()
         elif status_code == 201:
-            self.show_error(self.tr('Bad password'))
+            self.show_error(self.tr('Incorrect login data'))
+            self.password_lineedit.setFocus()
+            self.password_lineedit.selectAll()
         elif status_code == 404:
-            self.show_error(self.tr('User not found'))
+            self.show_error(self.tr('Incorrect login data'))
+            self.username_lineedit.setFocus()
+            self.username_lineedit.selectAll()
         else:
             self.show_error(data['response_status']['message'])
 
@@ -82,3 +87,19 @@ class LoginWidget(LoginWidget_UI, QWidget):
     def hide_error(self) -> None:
         self.error_label.setVisible(False)
         self.setFixedHeight(170)
+
+    def keyPressEvent(self, event: QKeyEvent) -> None:
+        if event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return:
+            active_widget = self.focusWidget()
+            if active_widget == self.username_lineedit:
+                if self.password_lineedit.text():
+                    self.login()
+                else:
+                    self.password_lineedit.setFocus()
+            elif active_widget == self.password_lineedit:
+                if self.username_lineedit.text():
+                    self.login()
+                else:
+                    self.username_lineedit.setFocus()
+            else:
+                event.ignore()
