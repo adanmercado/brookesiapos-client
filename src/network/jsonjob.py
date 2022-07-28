@@ -4,11 +4,13 @@ from hashlib import sha256
 
 from PySide6.QtCore import QObject, Signal
 
+from core.user import User
+
 class JsonJob(QObject):
     finished = Signal(dict)
     finished_with_error = Signal(str)
 
-    def __init__(self, endpoint: str, method: str = 'GET') -> None:
+    def __init__(self, endpoint: str, user : User = None, method: str = 'GET') -> None:
         super(JsonJob, self).__init__()
         self.host = 'http://localhost:5000/api'
         self.endpoint = endpoint
@@ -19,13 +21,13 @@ class JsonJob(QObject):
             self.url += '/'
         self.url += self.endpoint
 
-        # username = ''
-        # password = sha256(''.encode()).hexdigest()
-        # auth_data = base64.b64encode(f'{username}:{password}'.encode()).decode()
         self.headers = {
             'Accept': 'application/json'
-            # 'Authorization': 'Basic ' + auth_data
         }
+
+        if user:
+            auth_data = base64.b64encode(f'{user.username}:{user.password}'.encode()).decode()
+            self.headers['Authorization'] = 'Basic ' + auth_data
 
     def set_body(self, data: dict) -> None:
         self.data = data

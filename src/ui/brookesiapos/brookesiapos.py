@@ -26,11 +26,11 @@ class BrookesiaPOS(BrookesiaPOS_UI, QMainWindow):
         self.action_customers.triggered.connect(lambda: self.views_stackedwidget.setCurrentIndex(self.views.get('customersview')))
         self.action_products.triggered.connect(lambda: self.views_stackedwidget.setCurrentIndex(self.views.get('productsview')))
 
+        self.user = user
+
         self.action_about.triggered.connect(self.about)
         self.action_minimize.triggered.connect(self.showMinimized)
         self.action_exit.triggered.connect(QApplication.instance().quit)
-
-        self.user = user
 
         with open('qrc/theme/default/mainwindow.qss', 'r') as qss:
             theme = qss.read()
@@ -50,7 +50,7 @@ class BrookesiaPOS(BrookesiaPOS_UI, QMainWindow):
         self.views['salesview'] = 0
 
     def load_customersview(self) -> None:
-        customersview = CustomersWidget(self)
+        customersview = CustomersWidget(self.user, self)
         self.views_stackedwidget.addWidget(customersview)
         self.views['customersview'] = 1
 
