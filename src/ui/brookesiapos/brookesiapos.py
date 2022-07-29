@@ -22,9 +22,9 @@ class BrookesiaPOS(BrookesiaPOS_UI, QMainWindow):
         self.setWindowFlags(Qt.CustomizeWindowHint | Qt.WindowTitleHint)
         self.setWindowTitle(self.tr('Brookesia POS'))
 
-        self.action_sales.triggered.connect(lambda: self.views_stackedwidget.setCurrentIndex(self.views.get('salesview')))
-        self.action_customers.triggered.connect(lambda: self.views_stackedwidget.setCurrentIndex(self.views.get('customersview')))
-        self.action_products.triggered.connect(lambda: self.views_stackedwidget.setCurrentIndex(self.views.get('productsview')))
+        self.action_sales.triggered.connect(self.change_view)
+        self.action_customers.triggered.connect(self.change_view)
+        self.action_products.triggered.connect(self.change_view)
 
         self.user = user
 
@@ -44,22 +44,37 @@ class BrookesiaPOS(BrookesiaPOS_UI, QMainWindow):
         self.load_customersview()
         self.load_productsview()
 
+        self.current_view = self.action_sales
+        self.current_view.setDisabled(True)
+
     def load_salesview(self) -> None:
         salesview = SalesWidget(self)
         self.views_stackedwidget.addWidget(salesview)
-        self.views['salesview'] = 0
+        self.views['action_sales'] = 0
 
     def load_customersview(self) -> None:
         customersview = CustomersWidget(self.user, self)
         self.views_stackedwidget.addWidget(customersview)
-        self.views['customersview'] = 1
+        self.views['action_customers'] = 1
 
     def load_productsview(self) -> None:
         productsview = ProductsWidget(self)
         self.views_stackedwidget.addWidget(productsview)
-        self.views['productsview'] = 2
+        self.views['action_products'] = 2
+
+    def change_view(self) -> None:
+        sender_name = self.sender().objectName()
+        index = self.views.get(sender_name, None)
+
+        if index != None:
+            if self.current_view:
+                self.current_view.setEnabled(True)
+            
+            self.current_view = self.sender()
+            self.current_view.setDisabled(True)
+            
+            self.views_stackedwidget.setCurrentIndex(index)
 
     def about(self) -> None:
         about = AboutDialog(None)
-        #about.setWindowModality(Qt.ApplicationModal)
         about.exec()

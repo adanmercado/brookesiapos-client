@@ -19,4 +19,6 @@ QToolButton::pressed {
 QToolButton:disabled {
     background-color: rgba(240, 240, 240, 0.4);
     color: rgba(85, 85, 85, 0.6);
+    border-radius: 0px;
+    border-bottom: 2px solid rgb(0, 119, 190);
 }

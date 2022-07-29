@@ -27,7 +27,7 @@ class CustomerDialog(CustomerDialog_UI, QDialog):
 
     def show_error(self, message: str) -> None:
         self.error_label.setText(message)
-        self.setFixedHeight(397)
+        self.setFixedHeight(405)
         self.error_label.setVisible(True)
 
         QTimer.singleShot(3000, self.hide_error)
