@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QWidget, QHeaderView
 
 from .customerswidget_ui import CustomersWidget_UI
+from .customerdialog import CustomerDialog
 
 from core.user import User
 from core.customers.customers_model import CustomersModel
@@ -21,3 +22,9 @@ class CustomersWidget(CustomersWidget_UI, QWidget):
         self.customers_tableview.hideColumn(0)
         self.customers_tableview.horizontalHeader().setSectionResizeMode(2, QHeaderView.Stretch)
         self.customers_tableview.setShowGrid(True)
+
+        self.add_button.clicked.connect(self.add)
+
+    def add(self):
+        customer_dialog = CustomerDialog()
+        customer_dialog.exec()
