@@ -26,5 +26,8 @@ class CustomersWidget(CustomersWidget_UI, QWidget):
         self.add_button.clicked.connect(self.add)
 
     def add(self):
-        customer_dialog = CustomerDialog()
+        customer_dialog = CustomerDialog(self.user)
         customer_dialog.exec()
+
+        if customer_dialog.model_needs_update():
+            self.model.fetch_data()
