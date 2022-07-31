@@ -1,9 +1,9 @@
-from PySide6.QtWidgets import QWidget, QHeaderView, QMessageBox, QPushButton
-from PySide6.QtGui import QIcon
-from PySide6.QtCore import Qt, QModelIndex, QSize
+from PySide6.QtWidgets import QWidget, QHeaderView
+from PySide6.QtCore import QModelIndex
 
 from .customerswidget_ui import CustomersWidget_UI
 from .customerdialog import CustomerDialog
+from ui.messagebox.messagebox import MessageBox
 
 from core.user import User
 from core.customers.customers_model import CustomersModel
@@ -42,17 +42,7 @@ class CustomersWidget(CustomersWidget_UI, QWidget):
         selection = self.customers_tableview.selectionModel()
         if not selection.hasSelection():
             self.model_loaded()
-            
-            message_box = QMessageBox()
-            message_box.setWindowFlags(Qt.CustomizeWindowHint | Qt.WindowTitleHint)
-            message_box.setIcon(QMessageBox.Warning)
-            message_box.setText(self.tr('Select the customer to modify and try again.'))
-
-            accept_button = QPushButton(QIcon('qrc/icons/ok.png'), self.tr('Accept'), message_box)
-            accept_button.setIconSize(QSize(32, 32))
-            message_box.addButton(accept_button, QMessageBox.AcceptRole)
-
-            message_box.exec()
+            MessageBox(MessageBox.Warning, self.tr('Select the customer to modify and try again.')).exec()
             return
 
         customer = self.model.customer_from_index(selection.currentIndex())
