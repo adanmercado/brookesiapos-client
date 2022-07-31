@@ -98,11 +98,17 @@ class CustomerDialog_UI(object):
 
         self.verticalLayout.addWidget(self.keeppen_checkbox)
 
-        self.error_label = QLabel(customerdialog)
-        self.error_label.setObjectName(u"error_label")
-        self.error_label.setMinimumSize(QSize(0, 40))
+        self.toast_success_label = QLabel(customerdialog)
+        self.toast_success_label.setObjectName(u"toast_success_label")
+        self.toast_success_label.setMinimumSize(QSize(0, 40))
 
-        self.verticalLayout.addWidget(self.error_label)
+        self.verticalLayout.addWidget(self.toast_success_label)
+
+        self.toast_error_label = QLabel(customerdialog)
+        self.toast_error_label.setObjectName(u"toast_error_label")
+        self.toast_error_label.setMinimumSize(QSize(0, 40))
+
+        self.verticalLayout.addWidget(self.toast_error_label)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setSpacing(8)
@@ -157,7 +163,8 @@ class CustomerDialog_UI(object):
         self.email_label.setText(QCoreApplication.translate("customerdialog", u"Email:", None))
         self.address_label.setText(QCoreApplication.translate("customerdialog", u"Address:   ", None))
         self.keeppen_checkbox.setText(QCoreApplication.translate("customerdialog", u"Keep window open", None))
-        self.error_label.setText("")
+        self.toast_success_label.setText("")
+        self.toast_error_label.setText("")
         self.accept_button.setText(QCoreApplication.translate("customerdialog", u"Accept", None))
         self.cancel_button.setText(QCoreApplication.translate("customerdialog", u"Cancel", None))
     # retranslateUi

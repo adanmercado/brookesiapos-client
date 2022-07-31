@@ -42,11 +42,11 @@ class LoginWidget_UI(object):
 
         self.verticalLayout.addWidget(self.password_lineedit)
 
-        self.error_label = QLabel(loginwidget)
-        self.error_label.setObjectName(u"error_label")
-        self.error_label.setMinimumSize(QSize(0, 40))
+        self.toast_error_label = QLabel(loginwidget)
+        self.toast_error_label.setObjectName(u"toast_error_label")
+        self.toast_error_label.setMinimumSize(QSize(0, 40))
 
-        self.verticalLayout.addWidget(self.error_label)
+        self.verticalLayout.addWidget(self.toast_error_label)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setSpacing(8)
@@ -92,7 +92,7 @@ class LoginWidget_UI(object):
         loginwidget.setWindowTitle("")
         self.username_lineedit.setPlaceholderText(QCoreApplication.translate("loginwidget", u"Username", None))
         self.password_lineedit.setPlaceholderText(QCoreApplication.translate("loginwidget", u"Password", None))
-        self.error_label.setText("")
+        self.toast_error_label.setText("")
         self.login_button.setText(QCoreApplication.translate("loginwidget", u"Login", None))
         self.exit_button.setText(QCoreApplication.translate("loginwidget", u"Exit", None))
     # retranslateUi

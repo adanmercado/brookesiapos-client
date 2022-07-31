@@ -7,6 +7,7 @@ from .customerdialog_ui import CustomerDialog_UI
 
 from core.customers.customer import Customer
 from core.user import User
+from core.enums import MessageType
 
 class CustomerDialog(CustomerDialog_UI, QDialog):
     def __init__(self, user: User, parent: QWidget = None) -> None:
@@ -20,7 +21,7 @@ class CustomerDialog(CustomerDialog_UI, QDialog):
         self.setWindowTitle(self.tr('Customer'))
         self.setModal(True)
 
-        self.error_label.hide()
+        self.hide_notifications()
 
         self.accept_button.clicked.connect(self.accept_clicked)
         self.cancel_button.clicked.connect(self.reject)
@@ -42,7 +43,7 @@ class CustomerDialog(CustomerDialog_UI, QDialog):
     def accept_clicked(self) -> None:
         name = self.name_lineedit.text().strip()
         if not name:
-            self.show_error('Enter a name and try again.')
+            self.show_notification('Enter a name and try again.', MessageType.Error)
             return
 
         customer = Customer()
@@ -61,33 +62,40 @@ class CustomerDialog(CustomerDialog_UI, QDialog):
 
     def customer_added(self, data: dict) -> None:
         if not data:
-            self.show_error('An error ocurred, try again')
+            self.show_notification('An error ocurred, try again.', MessageType.Error)
             return
 
         status_code = data['response_status']['status']
 
         if status_code != 200:
-            self.show_error(data['response_status']['message'])
+            self.show_notification(data['response_status']['message'], MessageType.Error)
             return
 
         self.needs_update = True
         if not self.keeppen_checkbox.isChecked():
             self.accept()
         else:
+            self.show_notification('Customer added successfully.')
             self.clear_fields()
 
     def customer_updated(self, data: dict) -> None:
         self.needs_update = True
 
-    def show_error(self, message: str) -> None:
-        self.error_label.setText(message)
+    def show_notification(self, message: str, type: MessageType = MessageType.Information) -> None:
         self.setFixedHeight(405)
-        self.error_label.setVisible(True)
 
-        QTimer.singleShot(3000, self.hide_error)
+        if type == MessageType.Information:
+            self.toast_success_label.setText(message)
+            self.toast_success_label.setVisible(True)
+        elif type == MessageType.Error:
+            self.toast_error_label.setText(message)
+            self.toast_error_label.setVisible(True)
 
-    def hide_error(self) -> None:
-        self.error_label.setVisible(False)
+        QTimer.singleShot(3000, self.hide_notifications)
+
+    def hide_notifications(self) -> None:
+        self.toast_success_label.hide()
+        self.toast_error_label.hide()
         self.setFixedHeight(357)
 
     def clear_fields(self):

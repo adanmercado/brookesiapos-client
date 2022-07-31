@@ -27,7 +27,7 @@ class LoginWidget(LoginWidget_UI, QWidget):
         self.login_button.clicked.connect(self.login)
         self.exit_button.clicked.connect(QApplication.instance().quit)
 
-        self.error_label.setVisible(False)
+        self.toast_error_label.setVisible(False)
 
     def login(self) -> None:
         username = self.username_lineedit.text().strip()
@@ -72,14 +72,14 @@ class LoginWidget(LoginWidget_UI, QWidget):
             self.show_error(data['response_status']['message'])
 
     def show_error(self, message: str) -> None:
-        self.error_label.setText(message)
+        self.toast_error_label.setText(message)
         self.setFixedHeight(210)
-        self.error_label.setVisible(True)
+        self.toast_error_label.setVisible(True)
 
         QTimer.singleShot(3000, self.hide_error)
 
     def hide_error(self) -> None:
-        self.error_label.setVisible(False)
+        self.toast_error_label.setVisible(False)
         self.setFixedHeight(170)
 
     def keyPressEvent(self, event: QKeyEvent) -> None:
