@@ -1,6 +1,6 @@
 from typing import Any
 
-from PySide6.QtCore import QAbstractTableModel, QObject, QModelIndex, Qt
+from PySide6.QtCore import QAbstractTableModel, QObject, QModelIndex, Qt, Signal
 
 from network.jsonjob import JsonJob
 
@@ -8,6 +8,8 @@ from core.user import User
 from core.customers.customer import Customer
 
 class CustomersModel(QAbstractTableModel):
+    data_fetched = Signal()
+
     def __init__(self, user: User, parent: QObject) -> None:
         super().__init__(parent)
         self.setup(user)
@@ -17,7 +19,7 @@ class CustomersModel(QAbstractTableModel):
         self.customers = []
         self.headers = ['Id', self.tr('Name'), self.tr('Address'), self.tr('Phone'), self.tr('Email')]
 
-        self.fetch_data()
+        #self.fetch_data()
 
     def rowCount(self, parent: QModelIndex = None) -> int:
         return len(self.customers)
@@ -76,3 +78,10 @@ class CustomersModel(QAbstractTableModel):
             self.beginInsertRows(QModelIndex(), 0, len(new_customers) - 1)
             self.customers = new_customers
             self.endInsertRows()
+
+        self.data_fetched.emit()
+
+    def customer_from_index(self, index: QModelIndex) -> Customer:
+        if index.isValid():
+            return self.customers[index.row()]
+        return Customer()

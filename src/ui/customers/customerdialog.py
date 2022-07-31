@@ -53,14 +53,16 @@ class CustomerDialog(CustomerDialog_UI, QDialog):
         customer.address = self.address_textedit.toPlainText().strip()
 
         if self.customer:
-            print('Updating current customer')
+            customer.id = self.customer.id
+            job = JsonJob(f'/customers/{customer.id}', self.user, 'PUT')
         else:
             job = JsonJob('/customers', self.user, 'POST')
-            job.finished.connect(self.customer_added)
-            job.set_body(customer.to_json())
-            job.start()
+            
+        job.finished.connect(self.job_finished)
+        job.set_body(customer.to_json())
+        job.start()
 
-    def customer_added(self, data: dict) -> None:
+    def job_finished(self, data: dict) -> None:
         if not data:
             self.show_notification('An error ocurred, try again.', MessageType.Error)
             return
@@ -75,11 +77,11 @@ class CustomerDialog(CustomerDialog_UI, QDialog):
         if not self.keeppen_checkbox.isChecked():
             self.accept()
         else:
-            self.show_notification('Customer added successfully.')
+            self.show_notification(data['response_status']['message'])
             self.clear_fields()
 
-    def customer_updated(self, data: dict) -> None:
-        self.needs_update = True
+            if self.customer:
+                self.customer = None
 
     def show_notification(self, message: str, type: MessageType = MessageType.Information) -> None:
         self.setFixedHeight(405)
