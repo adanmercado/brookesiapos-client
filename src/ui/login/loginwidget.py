@@ -44,6 +44,7 @@ class LoginWidget(LoginWidget_UI, QWidget):
 
         job = JsonJob('/users/auth', method='POST')
         job.finished.connect(self.validate_user)
+        job.finished_with_error.connect(self.show_error)
 
         data = {
             'username': username,

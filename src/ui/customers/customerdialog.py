@@ -59,6 +59,7 @@ class CustomerDialog(CustomerDialog_UI, QDialog):
             job = JsonJob('/customers', self.user, 'POST')
             
         job.finished.connect(self.job_finished)
+        job.finished_with_error.connect(lambda message: self.show_notification(message, MessageType.Error))
         job.set_body(customer.to_json())
         job.start()
 

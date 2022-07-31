@@ -45,13 +45,16 @@ class JsonJob(QObject):
                 response = requests.delete(self.url, headers=self.headers)
             else:
                 print('HTTP method not supported')
-                self.finished_with_error.emit('HTTP method not supported')
+                self.finished_with_error.emit(self.tr('HTTP method not supported.'))
                 return
 
             self.finished.emit(response.json())
         except requests.exceptions.HTTPError as e:
             print(f'HTTP error ocurred {e}')
             self.finished_with_error.emit(e)
+        except requests.exceptions.ConnectionError as e:
+            print(f'Server connection error: {e}')
+            self.finished_with_error.emit(self.tr('Server connection error, please check your connection and try again.'))
         except Exception as e:
             print(f'An error ocurred, please try again later: {e}')
-            self.finished_with_error.emit('An error ocurred, please try again later')
+            self.finished_with_error.emit(self.tr('An error ocurred, please try again later.'))
