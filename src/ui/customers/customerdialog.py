@@ -85,14 +85,17 @@ class CustomerDialog(CustomerDialog_UI, QDialog):
                 self.customer = None
 
     def show_notification(self, message: str, type: MessageType = MessageType.Information) -> None:
-        self.setFixedHeight(405)
 
         if type == MessageType.Information:
             self.toast_success_label.setText(message)
+            self.toast_success_label.setToolTip(message)
             self.toast_success_label.setVisible(True)
+            self.setFixedHeight(self.height() + self.toast_success_label.height())
         elif type == MessageType.Error:
             self.toast_error_label.setText(message)
+            self.toast_error_label.setToolTip(message)
             self.toast_error_label.setVisible(True)
+            self.setFixedHeight(self.height() + self.toast_error_label.height())
 
         QTimer.singleShot(3000, self.hide_notifications)
 

@@ -45,6 +45,9 @@ class LoginWidget_UI(object):
         self.toast_error_label = QLabel(loginwidget)
         self.toast_error_label.setObjectName(u"toast_error_label")
         self.toast_error_label.setMinimumSize(QSize(0, 40))
+        self.toast_error_label.setTextFormat(Qt.PlainText)
+        self.toast_error_label.setScaledContents(True)
+        self.toast_error_label.setWordWrap(True)
 
         self.verticalLayout.addWidget(self.toast_error_label)
 

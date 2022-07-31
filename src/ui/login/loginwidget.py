@@ -74,8 +74,9 @@ class LoginWidget(LoginWidget_UI, QWidget):
 
     def show_error(self, message: str) -> None:
         self.toast_error_label.setText(message)
-        self.setFixedHeight(210)
+        self.toast_error_label.setToolTip(message)
         self.toast_error_label.setVisible(True)
+        self.setFixedHeight(self.height() + self.toast_error_label.height())
 
         QTimer.singleShot(3000, self.hide_error)
 
